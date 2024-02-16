@@ -11,9 +11,11 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
+                <br>
                 <h2>Books</h2>
             </div>
             <div class="col-sm">
+                <br>
                 <a href="/addbook" class="btn btn-success">Add a book</a>
             </div>
         </div>
@@ -24,6 +26,7 @@
                 <th>Year</th>
                 <th>ISBN</th>
                 <th>Price</th>
+                <th>Category</th>
                 <th>Actions</th>
                 <th> </th>
             </tr>
@@ -33,6 +36,7 @@
                 <td th:text="${book.publicationYear}"></td>
                 <td th:text="${book.isbn}"></td>
                 <td th:text="${book.price}"></td>
+                <td th:text="${book.category.name}"></td>
                 <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm">Delete</a></td>
                 <td><a th:href="@{/editbook/{id}(id=${book.id})}" class="btn btn-outline-secondary btn-sm">Edit</a></td>
             </tr>

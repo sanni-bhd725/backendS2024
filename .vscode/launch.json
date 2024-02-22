@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BookstoreApplication",
+            "request": "launch",
+            "mainClass": "training_project.bookstore.BookstoreApplication",
+            "projectName": "bookstore"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-BookstoreApplication<training_project-bookstore>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

@@ -1,6 +1,6 @@
 package training_project.bookstore.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +13,13 @@ import training_project.bookstore.domain.*;
 @Controller
 public class BookController {
 
-    @Autowired
-    private BookRepository bRepository;
+    private final BookRepository bRepository;
+    private final CategoryRepository cRepository;
 
-    @Autowired
-    private CategoryRepository cRepository;
+    public BookController(BookRepository bRepository, CategoryRepository cRepository) {
+        this.bRepository = bRepository;
+        this.cRepository = cRepository;
+    }
 
     @GetMapping("/booklist")
     public String showBooks(Model model) {
@@ -43,7 +45,7 @@ public class BookController {
     @GetMapping("delete/{id}")
     public String deleteCar(@PathVariable("id") Long id, Model model) {
         bRepository.deleteById(id);
-        return "redirect:booklist";
+        return "redirect:../booklist";
     }
 
     @SuppressWarnings("null")

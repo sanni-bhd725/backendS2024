@@ -10,15 +10,27 @@
 <body>
     <div class="container">
         <div class="row">
+
             <div class="col-sm">
                 <br>
                 <h2>Books</h2>
             </div>
-            <div class="col-sm">
-                <br>
-                <a href="/addbook" class="btn btn-success">Add a book</a>
+
+            <div class="col-sm-auto" style="padding-right: 40px;">
+                <div>
+                    <br>
+                    <a href="/addbook" class="btn btn-success">Add a book</a>
+                </div>
             </div>
+
+            <div class="col col-sm" style="padding: 24px 0">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out" class="btn btn-outline-secondary" />
+                </form>
+            </div>
+
         </div>
+
         <table class="table table-striped">
             <tr>
                 <th>Title</th>
@@ -41,6 +53,7 @@
                 <td><a th:href="@{/editbook/{id}(id=${book.id})}" class="btn btn-outline-secondary btn-sm">Edit</a></td>
             </tr>
         </table>
+
     </div>
 </body>
 

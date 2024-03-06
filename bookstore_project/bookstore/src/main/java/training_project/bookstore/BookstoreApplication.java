@@ -15,7 +15,8 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner createDemoData(BookRepository bRepository, CategoryRepository cRepository) {
+	public CommandLineRunner createDemoData(BookRepository bRepository, CategoryRepository cRepository,
+			AppUserRepository urepository) {
 		return (args) -> {
 			System.out.println("Creating demo data");
 
@@ -49,6 +50,14 @@ public class BookstoreApplication {
 					2024,
 					26.95,
 					cRepository.findByName("Contemporary fiction").get(0)));
+
+			AppUser user1 = new AppUser("user", "$2a$10$AWcRJ2FU4HKu2JQJ2tsLOOLfgqsIT7HTuFQ5x.Co9NS4lnpZXfgoW",
+					"user1@example.com", "USER");
+			AppUser user2 = new AppUser("admin", "$2a$10$7n.YdPdbIylPNNKsRd6IUexj79M9mGmA0dEp0vOtpM82sbpCA27Z6",
+					"user2@example.com", "ADMIN");
+
+			urepository.save(user1);
+			urepository.save(user2);
 
 			System.out.println("Showing data");
 			for (Book book : bRepository.findAll()) {

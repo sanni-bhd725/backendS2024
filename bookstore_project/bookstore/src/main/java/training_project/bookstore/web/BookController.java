@@ -21,6 +21,11 @@ public class BookController {
         this.cRepository = cRepository;
     }
 
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping("/booklist")
     public String showBooks(Model model) {
         model.addAttribute("books", bRepository.findAll());

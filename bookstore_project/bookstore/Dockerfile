@@ -4,8 +4,8 @@ FROM maven:3.8.6-eclipse-temurin-17-focal AS build
 # Copy the project files and the pom.xml to the container
 COPY src /home/app/src
 COPY pom.xml /home/app
-# Build the application using Maven
-RUN mvn -f /home/app/pom.xml clean package -DskipTests
+# Build the application using Maven Wrapper
+RUN ./mvnw -f /home/app/pom.xml clean package -DskipTests
 # Package stage
 # Use an official Maven image as the base image
 FROM eclipse-temurin:17-jre-focal

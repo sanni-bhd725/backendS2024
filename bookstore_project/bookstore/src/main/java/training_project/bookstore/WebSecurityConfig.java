@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import training_project.bookstore.web.UserDetailServiceImpl;
+import training_project.bookstore.service.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity

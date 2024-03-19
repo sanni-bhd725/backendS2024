@@ -1,5 +1,8 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.dependency.packagePresentation": "hierarchical"
+    "java.dependency.packagePresentation": "hierarchical",
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH}"
+    },
 }

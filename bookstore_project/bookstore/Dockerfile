@@ -1,9 +1,16 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAVA_OPTS
-ENV JAVA_OPTS=$JAVA_OPTS
-COPY target/bookstore-0.0.1-SNAPSHOT.jar bookstoreproject.jar
+# Build stage
+# Use an official Maven image as the base image
+FROM maven:3.8.6-eclipse-temurin-17-focal AS build
+# Copy the project files and the pom.xml to the container
+COPY src /home/app/src
+COPY pom.xml /home/app
+# Build the application using Maven Wrapper
+RUN mvn -f /home/app/pom.xml clean package -DskipTests
+# Package stage
+# Use an official Maven image as the base image
+FROM eclipse-temurin:17-jre-focal
+# Copy the built JAR file from the previous stage to the container
+COPY --from=build /home/app/target/bookstore-0.0.1-SNAPSHOT.jar /usr/local/lib/pkg.jar
 EXPOSE 8080
-# ENTRYPOINT exec java $JAVA_OPTS -jar bookstoreproject.jar
-# For Spring-Boot project, use the entrypoint below to reduce Tomcat startup time.
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar bookstoreproject.jar
+# Set the command to run the application
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/pkg.jar"]

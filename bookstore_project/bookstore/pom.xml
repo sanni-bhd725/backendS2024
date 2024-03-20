@@ -102,7 +102,7 @@
             	<configuration>
                 	<archive>
                     	<manifest>
-                        	<mainClass>bookstore.BookstoreApplication</mainClass>
+                        	<mainClass>training_project.BookstoreApplication</mainClass>
                     	</manifest>
                 	</archive>
             	</configuration>

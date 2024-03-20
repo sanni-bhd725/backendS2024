@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edit book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <h2>Edit the book details</h2>
+        <br>
+        <form th:object="${book}" th:action="@{/savebook}" action="#" method="post"
+            class="row gy-2 gx-3 align-items-center">
+            <input type="hidden" id="id" th:field="*{id}" />
+            <div class="col-auto">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" th:field="*{title}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="author" class="form-label">Author:</label>
+                <input type="text" th:field="*{author}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="publicationYear" class="form-label">Publication year:</label>
+                <input type="text" th:field="*{publicationYear}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="isbn" class="form-label">ISBN:</label>
+                <input type="text" th:field="*{isbn}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="price" class="form-label">Price:</label>
+                <input type="text" th:field="*{price}" class="form-control form-control" />
+            </div>
+
+            <div class="col-auto">
+                <label for="catlist" class="form-label">Category:</label>
+                <select id="catlist" th:field="*{category}" class="form-select">
+                    <option th:each="category: ${categories}" th:value="${category.categoryid}"
+                        th:text="${category.name}">
+                    </option>
+                </select>
+            </div>
+            <div></div>
+
+            <div>
+                <input type="submit" value="Save" class="btn btn-success btn-sm"></input>
+                or<a href="/booklist" button type="button" class="btn btn-light btn-sm">Return to the booklist</a>
+            </div>
+        </form>
+
+    </div>
+
+
+</body>
+
+</html>

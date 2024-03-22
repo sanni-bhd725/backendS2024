@@ -3,17 +3,20 @@ package S24.NewBookstore.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "book")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
     public String author, isbn, title;
+    @Column(name = "publication_year")
     public int publicationYear;
     public double price;
 
     @ManyToOne
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "categoryid")
     private Category category;
 
     public Book() {

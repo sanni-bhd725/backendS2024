@@ -1,6 +1,0 @@
-{
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "java.compile.nullAnalysis.mode": "automatic",
-    "git.decorations.enabled": false,
-    "java.dependency.packagePresentation": "hierarchical"
-}

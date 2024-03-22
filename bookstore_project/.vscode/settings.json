@@ -1,8 +1,0 @@
-{
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.dependency.packagePresentation": "flat",
-    "terminal.integrated.env.windows": {
-        "PATH": "${env:PATH}"
-    },
-}

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>SleepTracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div>
+                    <br>
+                    <td><a href="/addsleep" class="btn btn-success">Add a new data</a>
+                    </td>
+                </div>
+            </div>
+            <div class="col col-sm-auto" style="padding-top: 32px">
+                <p>Signed in as a <span class="text-primary" sec:authentication="name"></span></p>
+            </div>
+
+            <div class="col col-sm-auto" style="padding: 28px 15px 0">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out" class="btn btn-sm btn-outline-secondary" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div sec:authorize="hasAuthority('USER')">
+        <h4>Sleeping Data</h4>
+
+        <table class="table table-striped">
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Sleep Time Hours</th>
+                <th>Sleep Cycles</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            <tr th:each="sleep : ${sleeps}">
+                <td th:text="${sleep.appUser.username}"></td>
+                <td th:text="${sleep.dateInput}"></td>
+                <td th:text="${sleep.sleepScore}"></td>
+                <td th:text="${sleep.sleepTimeHours}"></td>
+                <td th:text="${sleep.sleepCycles}"></td>
+                <td><a th:href="@{/editsleep/{id}(id=${sleep.id})}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                </td>
+                <td><a th:href="@{/delete/{id}(id=${sleep.id})}" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <h4>Data of all users</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Sleep Time Hours</th>
+                <th>Sleep Cycles</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            <tr th:each="sleep : ${allSleeps}">
+                <td th:text="${sleep.appUser.username}"></td>
+                <td th:text="${sleep.dateInput}"></td>
+                <td th:text="${sleep.sleepScore}"></td>
+                <td th:text="${sleep.sleepTimeHours}"></td>
+                <td th:text="${sleep.sleepCycles}"></td>
+                <td><a th:href="@{/editsleep/{id}(id=${sleep.id})}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                </td>
+                <td><a th:href="@{/delete/{id}(id=${sleep.id})}" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+
+</html>

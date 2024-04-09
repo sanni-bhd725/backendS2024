@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add a new data</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <h2>Add a daily sleep data</h2>
+        <br>
+        <form action="#" th:action="@{/save}" th:object="${sleep}" method="post"
+            class="row gy-2 gx-3 align-items-center">
+
+            <!-- Admins' view with username selection -->
+            <div class="col-auto" sec:authorize="hasAuthority('ADMIN')">
+                <label for="selectedUsername" class="form-label">Select User:</label>
+                <select class="form-select" id="selectedUsername" name="selectedUsername">
+                    <option th:each="appUser : ${users}" th:value="${appUser.username}" th:text="${appUser.username}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Users' view to own username, cannot modify -->
+            <div class="col-auto" sec:authorize="hasAuthority('USER')">
+                <label for="user" class="form-label">User:</label>
+                <div class="col-auto" style="padding: 8px;">
+                    <span th:text="${#authentication.name}"></span>
+                    <input type="hidden" id="user" name="selectedUsername" th:value="${#authentication.name}" />
+                </div>
+            </div>
+
+            <!-- Form view to all authorities-->
+            <div class="col-auto">
+                <label for="dateInput" class="form-label">Date (dd.mm.yyyy):</label>
+                <input type="text" th:field="*{dateInput}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="sleepScore" class="form-label">Score:</label>
+                <input type="text" th:field="*{sleepScore}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="sleepTimeHours" class="form-label">Sleep time hours:</label>
+                <input type="text" th:field="*{sleepTimeHours}" class="form-control form-control" />
+            </div>
+            <div class="col-auto">
+                <label for="sleepCycles" class="form-label">Sleep cycles:</label>
+                <input type="text" th:field="*{sleepCycles}" class="form-control form-control" />
+            </div>
+
+            <div>
+                <input type="submit" value="Save" class="btn btn-success btn-sm"></input>
+                or return to the <a href="/main" button type="button" class="btn btn-light btn-sm">main page</a>
+            </div>
+
+        </form>
+
+    </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -73,7 +73,7 @@ public class SleepController {
             @RequestParam(value = "selectedUsername", required = false) String selectedUsername,
             Authentication authentication) {
 
-        // Username of the logged in user
+        // Searching the logged in user
         String username = authentication.getName();
         AppUser appUser = auRepository.findByUsername(username);
 
@@ -92,10 +92,44 @@ public class SleepController {
     }
 
     @SuppressWarnings("null")
-    @GetMapping("editsleep/{id}")
-    public String editSleep(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("sleep", sRepository.findById(id));
-        return "editsleep";
+    @GetMapping("/editsleep/{id}")
+    public String editSleep(@PathVariable("id") Long id, Model model, Authentication authentication) {
+
+        // Searching the logged in user
+        String username = authentication.getName();
+        AppUser appUser = auRepository.findByUsername(username);
+
+        // Searching data by sleep id
+        Optional<Sleep> optionalSleep = sRepository.findById(id);
+        if (optionalSleep.isPresent()) {
+            Sleep sleep = optionalSleep.get();
+
+            // Calling to rights checking method
+            if (!canEditSleep(sleep, appUser, authentication)) {
+                // With no rights turning back to the main page
+                return "redirect:/main";
+            }
+
+            model.addAttribute("sleep", sleep);
+            // All usernames for ADMINs' select-element
+            model.addAttribute("users", auRepository.findAll());
+            // Selecting username
+            model.addAttribute("selectedUsername", sleep.getAppUser().getUsername());
+            return "editsleep";
+
+        } else {
+            return "redirect:/main";
+        }
+    }
+
+    // Method to checking rights to edit data
+    private boolean canEditSleep(Sleep sleep, AppUser appUser, Authentication authentication) {
+        // Admin can edit all
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return true;
+        }
+        // Users can edit their own data
+        return sleep.getAppUser().equals(appUser);
     }
 
     @SuppressWarnings("null")

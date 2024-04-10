@@ -15,7 +15,7 @@
         <form action="#" th:action="@{/save}" th:object="${sleep}" method="post"
             class="row gy-2 gx-3 align-items-center">
 
-            <!-- Admins' view with username selection -->
+            <!-- Username selection for ADMIN -->
             <div class="col-auto" sec:authorize="hasAuthority('ADMIN')">
                 <label for="selectedUsername" class="form-label">Select User:</label>
                 <select class="form-select" id="selectedUsername" name="selectedUsername">
@@ -24,10 +24,10 @@
                 </select>
             </div>
 
-            <!-- Users' view to own username, cannot modify -->
+            <!-- Showing username for USER -->
             <div class="col-auto" sec:authorize="hasAuthority('USER')">
                 <label for="user" class="form-label">User:</label>
-                <div class="col-auto" style="padding: 8px;">
+                <div class="col-auto" style="padding: 6px;">
                     <span th:text="${#authentication.name}"></span>
                     <input type="hidden" id="user" name="selectedUsername" th:value="${#authentication.name}" />
                 </div>

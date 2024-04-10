@@ -1,7 +1,5 @@
 package FinalProject.SleepTracker.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -16,10 +14,11 @@ public class Sleep {
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private String dateInput;
+
     @Max(100)
     private int sleepScore;
+
     private int sleepTimeHours /* , sleepTimeMins */;
     private int sleepCycles;
     // private int awakeHours, awakeMins, awakePercentage;

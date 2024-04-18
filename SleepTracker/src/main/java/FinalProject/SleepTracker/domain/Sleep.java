@@ -1,7 +1,9 @@
 package FinalProject.SleepTracker.domain;
 
+import org.hibernate.validator.constraints.Range;
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Sleep {
@@ -14,12 +16,16 @@ public class Sleep {
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 
+    @Pattern(message = "Fill the date in form dd.mm.yyyy", regexp = "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(20)\\d\\d$")
     private String dateInput;
 
-    @Max(100)
+    @Range(min = 1, max = 100)
     private int sleepScore;
 
+    @Range(min = 2, max = 20)
     private int sleepTimeHours /* , sleepTimeMins */;
+
+    @Range(min = 1, max = 10)
     private int sleepCycles;
     // private int awakeHours, awakeMins, awakePercentage;
     // private int physicalHours, physicalMins, physicalPercentage;

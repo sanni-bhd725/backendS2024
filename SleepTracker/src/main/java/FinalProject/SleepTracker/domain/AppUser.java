@@ -2,6 +2,8 @@ package FinalProject.SleepTracker.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +25,7 @@ public class AppUser {
     @Column(nullable = false)
     private String role;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser")
     private List<Sleep> sleeps;
 

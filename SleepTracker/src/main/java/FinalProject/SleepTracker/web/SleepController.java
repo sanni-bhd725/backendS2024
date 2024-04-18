@@ -7,9 +7,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import FinalProject.SleepTracker.domain.*;
+import jakarta.validation.Valid;
 
 @Controller
 public class SleepController {
@@ -69,9 +71,22 @@ public class SleepController {
     }
 
     @PostMapping("/save")
-    public String saveSleep(@ModelAttribute("sleep") Sleep sleep,
+    public String saveSleep(@Valid @ModelAttribute("sleep") Sleep sleep, BindingResult bindingResult,
             @RequestParam(value = "selectedUsername", required = false) String selectedUsername,
-            Authentication authentication) {
+            Authentication authentication, Model model) {
+
+        // Handling a validation errors
+        if (bindingResult.hasErrors()) {
+            System.out.println("Validation error");
+
+            // Keeping filled in data in the form while showing error message
+            model.addAttribute("sleep", sleep);
+
+            if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                model.addAttribute("users", auRepository.findAll());
+            }
+            return "/addsleep";
+        }
 
         // Searching the logged in user
         String username = authentication.getName();
@@ -84,11 +99,11 @@ public class SleepController {
                 appUser = auRepository.findByUsername(selectedUsername);
             }
         }
-
         sleep.setAppUser(appUser);
         sRepository.save(sleep);
 
         return "redirect:/main";
+
     }
 
     @SuppressWarnings("null")

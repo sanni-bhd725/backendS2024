@@ -37,18 +37,22 @@
             <div class="col-auto">
                 <label for="dateInput" class="form-label">Date (dd.mm.yyyy):</label>
                 <input type="text" th:field="*{dateInput}" class="form-control form-control" />
+                <p th:if="${#fields.hasErrors('dateInput')}" th:errors="*{dateInput}">Error</p>
             </div>
             <div class="col-auto">
                 <label for="sleepScore" class="form-label">Score:</label>
                 <input type="text" th:field="*{sleepScore}" class="form-control form-control" />
+                <p th:if="${#fields.hasErrors('sleepScore')}" th:errors="*{sleepScore}">Error</p>
             </div>
             <div class="col-auto">
                 <label for="sleepTimeHours" class="form-label">Sleep time hours:</label>
                 <input type="text" th:field="*{sleepTimeHours}" class="form-control form-control" />
+                <p th:if="${#fields.hasErrors('sleepTimeHours')}" th:errors="*{sleepTimeHours}">Error</p>
             </div>
             <div class="col-auto">
                 <label for="sleepCycles" class="form-label">Sleep cycles:</label>
                 <input type="text" th:field="*{sleepCycles}" class="form-control form-control" />
+                <p th:if="${#fields.hasErrors('sleepCycles')}" th:errors="*{sleepCycles}">Error</p>
             </div>
 
             <div>
